@@ -1,0 +1,329 @@
+/* Banks */
+.banks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bank {
+  padding: 28px;
+}
+
+.bank__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.bank__mark {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--forest-900);
+  color: var(--gold-300);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.bank h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--forest-900);
+}
+
+.bank__meta {
+  font-size: 14px;
+  color: var(--ink-500);
+}
+
+.bank__label {
+  margin: 0 0 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+
+.bank__products {
+  margin: 0 0 20px;
+  padding-left: 20px;
+  list-style: disc;
+  font-size: 15.5px;
+  color: var(--ink-700);
+}
+
+.bank__officers {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.bank__officers li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--mist-50);
+  border: 1px solid var(--mist-200);
+}
+
+.bank__officers strong {
+  display: block;
+  font-size: 17px;
+  color: var(--forest-900);
+}
+
+.bank__officers li > div > span {
+  font-size: 13.5px;
+  color: var(--ink-500);
+}
+
+.bank__phone {
+  grid-column: 1;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink-700);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.bank__actions {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bank__soon {
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px dashed rgba(168, 130, 47, 0.5);
+  background: var(--gold-100);
+}
+
+.bank__soon p {
+  margin: 10px 0 12px;
+  font-size: 15px;
+  color: var(--ink-700);
+}
+
+.bank__site {
+  font-size: 14.5px;
+}
+
+.banks__note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 0;
+  font-size: 14.5px;
+  color: var(--ink-500);
+}
+
+.banks__note svg {
+  flex-shrink: 0;
+  color: var(--leaf-600);
+}
+
+/* Steps */
+.loan-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.loan-steps li {
+  padding: 26px 24px 36px;
+}
+
+.loan-steps__num {
+  display: block;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--gold-500);
+}
+
+.loan-steps strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 18px;
+  color: var(--forest-900);
+}
+
+.loan-steps p {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: var(--ink-500);
+}
+
+/* EMI estimator */
+.emi {
+  padding: 26px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.emi__form {
+  display: grid;
+  gap: 18px;
+}
+
+.emi__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.emi .field {
+  display: grid;
+  gap: 6px;
+}
+
+.emi .field span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-700);
+}
+
+.emi .field input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid rgba(19, 38, 27, 0.18);
+  border-radius: 12px;
+  font: 800 22px var(--font-body);
+  color: var(--forest-900);
+}
+
+.emi .field input:focus {
+  outline: none;
+  border-color: var(--leaf-500);
+  box-shadow: 0 0 0 4px rgba(58, 150, 72, 0.15);
+}
+
+.emi .field small {
+  font-size: 13px;
+  color: var(--ink-400);
+}
+
+.emi__result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 22px 0 0;
+}
+
+.emi__result > div {
+  padding: 16px 18px;
+  background: var(--mist-50);
+  border: 1px solid var(--mist-200);
+}
+
+.emi__result dt {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.emi__result dd {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--forest-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.emi__main {
+  grid-column: 1 / -1;
+  background: var(--forest-900) !important;
+  border-color: var(--forest-900) !important;
+}
+
+.emi__main dt {
+  color: var(--gold-300);
+}
+
+.emi__main dd {
+  font-size: 36px;
+  color: var(--white);
+}
+
+.emi__note {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  color: var(--ink-400);
+}
+
+/* Document / rules cards */
+.loan-card {
+  padding: 28px;
+}
+
+.loan-card h3 {
+  margin: 18px 0 8px;
+  font-size: 22px;
+  color: var(--forest-900);
+}
+
+.loan-card p,
+.loan-card ul {
+  margin: 0 0 14px;
+  font-size: 15.5px;
+  color: var(--ink-700);
+}
+
+.loan-card ul {
+  padding-left: 20px;
+}
+
+.loan-card li + li {
+  margin-top: 6px;
+}
+
+@media (max-width: 1000px) {
+  .banks {
+    grid-template-columns: 1fr;
+  }
+  .loan-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .loan-steps,
+  .emi__row {
+    grid-template-columns: 1fr;
+  }
+  .bank__officers li {
+    grid-template-columns: 1fr;
+  }
+  .bank__actions {
+    grid-column: 1;
+    grid-row: auto;
+    flex-direction: row;
+    margin-top: 8px;
+  }
+}

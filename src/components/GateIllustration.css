@@ -1,0 +1,100 @@
+.gate {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+/* ---------- Colour rendering ---------- */
+.gate--color .gate__treeline { fill: #9dbb83; opacity: 0.55; }
+.gate--color .gate__trunk { fill: #7d6a52; }
+.gate--color .gate__frond { fill: #3f7b3b; }
+.gate--color .gate__frond--alt { fill: #5a9447; }
+.gate--color .gate__pole { fill: #4d524e; }
+.gate--color .gate__lamp { fill: #fff3cf; }
+.gate--color .gate__panel { fill: #2b4766; }
+.gate--color .gate__panel-grid { fill: none; stroke: #6f8fb0; stroke-width: 1; }
+
+.gate--color .gate__wall-body { fill: #efe8da; }
+.gate--color .gate__coping { fill: #faf7f0; }
+.gate--color .gate__wall-panel { fill: #7a807b; }
+.gate--color .gate__slat { fill: #3a3f3b; }
+.gate--color .gate__wall-pillar { fill: #e3dacb; }
+
+.gate--color .gate__cabin-body { fill: #f7f3eb; }
+.gate--color .gate__cabin-roof { fill: #2e3330; }
+.gate--color .gate__glass { fill: #84aebd; }
+.gate--color .gate__glass-shine { fill: #ffffff; opacity: 0.35; }
+.gate--color .gate__sign { fill: #123524; }
+.gate--color .gate__sign-text { fill: #ead39b; font: 700 7px var(--font-body); letter-spacing: 1.2px; }
+.gate--color .gate__plinth { fill: #cfc6b4; }
+.gate--color .gate__post { fill: #fbf9f4; }
+
+.gate--color .gate__canopy-wood { fill: #6e4f35; }
+.gate--color .gate__louvre { fill: #9a7350; }
+.gate--color .gate__canopy-frame { fill: #fcfbf7; }
+.gate--color .gate__canopy-shadow { fill: #d9d0bf; }
+
+.gate--color .gate__feature-back { fill: #ece6da; }
+.gate--color .gate__feature-slat { fill: #4a4f4a; }
+.gate--color .gate__feature-cap { fill: #fbf9f4; }
+.gate--color .gate__plaque { fill: #fbf8f1; }
+.gate--color .gate__emblem { fill: #b8903d; }
+.gate--color .gate__wordmark { fill: #16231c; font: 700 10.5px var(--font-brand); letter-spacing: 0.6px; }
+.gate--color .gate__wordmark-sub { fill: #3c4a41; font: 600 6px var(--font-body); letter-spacing: 3.2px; }
+
+.gate--color .gate__pylon-face { fill: #fdfcf8; }
+.gate--color .gate__pylon-shade { fill: #e6dfd1; }
+
+.gate--color .gate__camera-mount { fill: #e9e4da; }
+.gate--color .gate__camera-body { fill: #f4f2ee; stroke: #9aa19c; stroke-width: 0.8; }
+.gate--color .gate__camera-led { fill: #e04a3a; }
+
+.gate--color .gate__boom-base { fill: #f0b52f; }
+
+.gate--color .gate__kerb { fill: #d8cfbd; }
+.gate--color .gate__agave path { fill: #7aa565; }
+.gate--color .gate__hedge { fill: #3e7a3a; }
+.gate--color .gate__hedge-light { fill: #67a252; opacity: 0.7; }
+
+.gate--color .gate__kerbline { fill: #d7cfbf; }
+.gate--color .gate__lane { stroke: #f2efe6; stroke-width: 3; stroke-dasharray: 14 12; opacity: 0.8; }
+
+.gate--color .gate__glow {
+  transform-origin: 600px 250px;
+  animation: gate-glow 9s ease-in-out infinite alternate;
+}
+
+@keyframes gate-glow {
+  from { transform: scale(0.94); opacity: 0.85; }
+  to { transform: scale(1.04); opacity: 1; }
+}
+
+/* ---------- Blueprint rendering ---------- */
+.gate--blueprint * {
+  fill: none;
+  stroke: rgba(240, 228, 198, 0.72);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.gate--blueprint text {
+  fill: rgba(240, 228, 198, 0.92);
+  stroke: none;
+}
+
+.gate--blueprint .gate__wordmark { font: 700 10.5px var(--font-brand); letter-spacing: 0.6px; }
+.gate--blueprint .gate__wordmark-sub { font: 600 6px var(--font-body); letter-spacing: 3.2px; }
+.gate--blueprint .gate__sign-text { font: 700 7px var(--font-body); letter-spacing: 1.2px; }
+.gate--blueprint .gate__emblem,
+.gate--blueprint .gate__emblem * { stroke: var(--gold-500); }
+.gate--blueprint .gate__treeline { stroke-dasharray: 3 4; opacity: 0.5; }
+.gate--blueprint .gate__slat,
+.gate--blueprint .gate__louvre,
+.gate--blueprint .gate__feature-slat { stroke: rgba(240, 228, 198, 0.4); }
+.gate--blueprint .gate__road,
+.gate--blueprint .gate__lawn,
+.gate--blueprint .gate__bump { stroke: rgba(240, 228, 198, 0.25); }
+.gate--blueprint .gate__lane { stroke-dasharray: 8 8; }
+.gate--blueprint .gate__pylon-face,
+.gate--blueprint .gate__canopy-frame,
+.gate--blueprint .gate__feature-back { stroke: var(--gold-300); stroke-width: 1.4; }

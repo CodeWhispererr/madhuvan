@@ -1,0 +1,377 @@
+/* Life at Madhuvan: stacked photo cards that shuffle (see LifeDeck.tsx). */
+.deck {
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: clamp(32px, 5vw, 72px);
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+
+.deck__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  grid-template-areas:
+    'copy stage'
+    'nav stage';
+  gap: 0 clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.deck__grid > * {
+  min-width: 0;
+}
+
+.deck__copy {
+  grid-area: copy;
+  align-self: end;
+}
+
+.deck__copy .heading {
+  margin-bottom: 20px;
+}
+
+.deck__nav {
+  grid-area: nav;
+  align-self: start;
+}
+
+.deck__stage {
+  grid-area: stage;
+  display: flex;
+  justify-content: flex-end;
+  padding: 56px 60px 0 0;
+}
+
+/* Index — one line per card, the active one carries the autoplay progress bar. */
+.deck__index {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 0 0 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.deck__index button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-500);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.deck__index button:hover {
+  background: var(--mist-50);
+  color: var(--forest-900);
+}
+
+.deck__index button[aria-current='true'] {
+  background: var(--mist-50);
+  color: var(--forest-900);
+  font-weight: 800;
+}
+
+.deck__index i {
+  font-style: normal;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--gold-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.deck__progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold-500);
+  transform-origin: left;
+  animation: deck-progress var(--deck-interval, 5000ms) linear forwards;
+}
+
+@keyframes deck-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.deck__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.deck__arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(16, 48, 31, 0.25);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--forest-900);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.deck__arrow:hover {
+  background: var(--forest-900);
+  border-color: var(--forest-900);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.deck__count {
+  margin: 0 10px 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.deck__count strong {
+  font-size: 20px;
+  color: var(--forest-900);
+}
+
+/* The stack. --o is a card's distance from the top (0 = front). */
+.deck__cards {
+  --fan-x: 20px;
+  --fan-y: -16px;
+  position: relative;
+  width: min(100%, 540px);
+  aspect-ratio: 5 / 6;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.deck__cards.is-dragging {
+  cursor: grabbing;
+}
+
+.deck__cards:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 10px;
+}
+
+.deck__card {
+  --o: 0;
+  position: absolute;
+  inset: 0;
+  z-index: calc(10 - var(--o));
+  overflow: hidden;
+  background: var(--forest-900);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-lift);
+  transform: translate(calc(var(--o) * var(--fan-x)), calc(var(--o) * var(--fan-y))) rotate(calc(var(--o) * 2.2deg))
+    scale(calc(1 - var(--o) * 0.045));
+  transform-origin: 50% 100%;
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+  will-change: transform;
+}
+
+.deck__card.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.deck__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(calc(1 - var(--o) * 0.09));
+  transition: filter 0.65s ease;
+}
+
+/* Glass corner, echoing the hero banner. */
+.deck__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 76px;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.3);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  pointer-events: none;
+}
+
+.deck__num {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  padding: 6px 10px;
+  background: var(--gold-500);
+  color: var(--forest-950);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.deck__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: 72px 26px 26px;
+  color: var(--white);
+  background: linear-gradient(180deg, rgba(10, 32, 22, 0) 0%, rgba(10, 32, 22, 0.55) 40%, rgba(10, 32, 22, 0.88) 100%);
+}
+
+.deck__caption h3 {
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.deck__caption p {
+  margin: 8px 0 0;
+  max-width: 42ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Shuffle: the top card is flicked off to the left, then slips in at the back of the fan. */
+.deck__card.is-leaving,
+.deck__card.is-entering {
+  z-index: 20;
+  transition: none;
+  animation: deck-out 0.7s cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+
+.deck__card.is-entering {
+  animation-name: deck-in;
+}
+
+@keyframes deck-out {
+  0% {
+    transform: translate(var(--dx, 0px), 0) rotate(var(--dr, 0deg)) scale(1);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(-44%, 8%) rotate(-11deg) scale(1);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(calc(3 * var(--fan-x)), calc(3 * var(--fan-y))) rotate(6.6deg) scale(0.865);
+    opacity: 0;
+  }
+}
+
+@keyframes deck-in {
+  0% {
+    transform: translate(-44%, 8%) rotate(-11deg) scale(1);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .deck__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'stage'
+      'nav';
+    gap: 0;
+  }
+  .deck__copy .heading {
+    margin-bottom: 8px;
+  }
+  .deck__stage {
+    justify-content: center;
+    margin-bottom: 36px;
+    padding: 48px 44px 0 0;
+  }
+  .deck__cards {
+    --fan-x: 14px;
+    --fan-y: -12px;
+    width: 100%;
+  }
+  .deck__index {
+    display: flex;
+    gap: 8px;
+    margin: 0 -16px 18px;
+    padding: 2px 16px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .deck__index::-webkit-scrollbar {
+    display: none;
+  }
+  .deck__index li {
+    flex: 0 0 auto;
+  }
+  .deck__index button {
+    width: auto;
+    grid-template-columns: auto auto;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--mist-200);
+    border-radius: 999px;
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+  .deck__index button[aria-current='true'] {
+    background: var(--forest-900);
+    color: var(--white);
+  }
+  .deck__index button[aria-current='true'] i {
+    color: var(--gold-300);
+  }
+  .deck__progress {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .deck__stage {
+    padding: 40px 30px 0 0;
+  }
+  .deck__caption {
+    padding: 60px 18px 18px;
+  }
+  .deck__caption p {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck__card,
+  .deck__card img {
+    transition: none;
+  }
+}
